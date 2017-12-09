@@ -75,15 +75,16 @@ public class Main {
         ListResult<AssetInfo> afterListAssets = redactService.listAssetID();
         redactService.downLoadRedactedImageFile(afterListAssets);
 
-        //アセットの削除        
-        beforeListAssets.forEach((AssetInfo asset) -> {
+        //アセットの削除       
+        /*
+        afterListAssets.forEach((AssetInfo asset) -> {
             try {
                 redactService.deleteAsset(asset);
             } catch (ServiceException ex) {
                 LOGGER.log(Level.SEVERE, null, ex);
             }
-        });
-        //redactService.deleteAllAssets();
+        });*/
+        redactService.deleteAllAssets();
 
         //終了処理
         redactService.desroy();
@@ -96,7 +97,7 @@ public class Main {
             try {
                 LOGGER.log(Level.FINE, "file name {0}", path.getFileName().toString());
                 LOGGER.log(Level.FINE, "Abusolute Path name {0}", path.toAbsolutePath().toString());
-                redactService.uploadFileAndCreateAsset(path.getFileName().toString(), path.toAbsolutePath().toString());
+                AssetInfo uploadFileAndCreateAsset = redactService.uploadFileAndCreateAsset(path.getFileName().toString(), path.toAbsolutePath().toString());
             } catch (ServiceException | FileNotFoundException | NoSuchAlgorithmException ex) {
                 LOGGER.log(Level.SEVERE, null, ex);
             }
