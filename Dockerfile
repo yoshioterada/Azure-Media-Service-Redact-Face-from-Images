@@ -1,3 +1,4 @@
+# Hello Test
 FROM java:8-jdk-alpine
 MAINTAINER Yoshio Terada
 
