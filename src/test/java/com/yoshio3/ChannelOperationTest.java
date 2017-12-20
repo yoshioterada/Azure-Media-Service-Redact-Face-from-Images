@@ -54,7 +54,7 @@ public class ChannelOperationTest {
      */
     @Test
     public void testIsCompleted() throws ExecutionException, InterruptedException {
- /*       System.out.println("testIsCompleted Start -----------------------------");
+        System.out.println("testIsCompleted Start -----------------------------");
         try {
             //作成時の isCompleted() の検査
             String channelName = "testIsCompleted";
@@ -82,7 +82,7 @@ public class ChannelOperationTest {
         } catch (InvalidChannelOperationException expected) {
             assertThat(expected.getMessage(), equalTo("isCompleted() failed :400 : Bad Request"));
         }
-        System.out.println("testIsCompleted Done -----------------------------");*/
+        System.out.println("testIsCompleted Done -----------------------------");
     }
 
     /**
@@ -90,11 +90,11 @@ public class ChannelOperationTest {
      */
     @Test
     public void testGetChannelIDFromName() {
-/*        System.out.println("testGetChannelIDFromName Start -----------------------------");
+        System.out.println("testGetChannelIDFromName Start -----------------------------");
         //存在していない　ID を指定した場合
         Optional<String> channelIDFromName1 = channelOperation.getChannelIDFromName("HOGEHOGE");
         assertFalse(channelIDFromName1.isPresent());
-        System.out.println("testGetChannelIDFromName Done -----------------------------");*/
+        System.out.println("testGetChannelIDFromName Done -----------------------------");
     }
 
     /**
@@ -102,7 +102,7 @@ public class ChannelOperationTest {
      */
     @Test
     public void testListChannel() throws ExecutionException, InterruptedException {
-/*        System.out.println("testListChannel Start -----------------------------");
+        System.out.println("testListChannel Start -----------------------------");
 
         //現在のチャンネルを全停止
         stopAllDummyChannel();
@@ -135,7 +135,7 @@ public class ChannelOperationTest {
         } catch (InvalidChannelOperationException ex) {
             LOGGER.log(Level.SEVERE, null, ex);
         }
-        System.out.println("testListChannel Done -----------------------------");*/
+        System.out.println("testListChannel Done -----------------------------");
     }
 
     /**
@@ -204,7 +204,7 @@ public class ChannelOperationTest {
      */
     @Test
     public void testStopChannel() {
-/*        System.out.println("testStopChannel Start -----------------------------");
+        System.out.println("testStopChannel Start -----------------------------");
         try {
             //現在のチャンネルを全停止
             stopAllDummyChannel();
@@ -257,7 +257,7 @@ public class ChannelOperationTest {
         } catch (ExecutionException | InterruptedException | InvalidChannelOperationException ex) {
             LOGGER.log(Level.SEVERE, null, ex);
         }
-        System.out.println("testStopChannel Done -----------------------------");*/
+        System.out.println("testStopChannel Done -----------------------------");
     }
 
     /**
@@ -265,7 +265,7 @@ public class ChannelOperationTest {
      */
     @Test
     public void testCreateChannel() {
-/*        System.out.println("testCreateChannel Start -----------------------------");
+        System.out.println("testCreateChannel Start -----------------------------");
         try {
             //現在のチャンネルを全停止
             stopAllDummyChannel();
@@ -327,7 +327,7 @@ public class ChannelOperationTest {
         } catch (ExecutionException | InterruptedException | InvalidChannelOperationException ex) {
             Logger.getLogger(ChannelOperationTest.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("testCreateChannel Done -----------------------------");*/
+        System.out.println("testCreateChannel Done -----------------------------");
     }
 
     /**
@@ -335,7 +335,7 @@ public class ChannelOperationTest {
      */
     @Test
     public void testDeleteChannel() throws ExecutionException, InterruptedException {
-/*        System.out.println("testDeleteChannel Start -----------------------------");
+        System.out.println("testDeleteChannel Start -----------------------------");
         try {
             String channelName = "testDeleteChannel";
             createDummyChannel(channelName);
@@ -346,7 +346,7 @@ public class ChannelOperationTest {
         } catch (InvalidChannelOperationException ex) {
             LOGGER.log(Level.SEVERE, null, ex);
         }
-        System.out.println("testDeleteChannel Done -----------------------------");*/
+        System.out.println("testDeleteChannel Done -----------------------------");
     }
 
     /**
