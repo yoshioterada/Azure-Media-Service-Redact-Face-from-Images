@@ -29,8 +29,6 @@ package com.yoshio3;
 import com.microsoft.windowsazure.Configuration;
 import com.microsoft.windowsazure.exception.ServiceException;
 import com.microsoft.windowsazure.services.media.MediaConfiguration;
-import com.microsoft.windowsazure.services.media.MediaContract;
-import com.microsoft.windowsazure.services.media.MediaService;
 import com.microsoft.windowsazure.services.media.authentication.AzureAdAccessToken;
 import com.microsoft.windowsazure.services.media.authentication.AzureAdClientSymmetricKey;
 import com.microsoft.windowsazure.services.media.authentication.AzureAdTokenCredentials;
@@ -88,8 +86,6 @@ public class ChannelOperation {
     private final static String REST_API_ENDPOINT;
     private final static String ENDPOINT_HOST_NAME;
 
-    private MediaContract mediaService;
-    private ExecutorService executorService;
     private String accessToken;
 
     static {
@@ -114,7 +110,7 @@ public class ChannelOperation {
      * @throws ServiceException
      */
     public void init() throws MalformedURLException, URISyntaxException, ServiceException {
-        executorService = Executors.newFixedThreadPool(1);
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
         try {
             //アクセス・トークンの取得
             AzureAdTokenCredentials credentials = new AzureAdTokenCredentials(
@@ -125,29 +121,15 @@ public class ChannelOperation {
             Configuration configuration = MediaConfiguration.configureWithAzureAdTokenProvider(
                     new URI(REST_API_ENDPOINT),
                     provider);
-            try {
-                AzureAdAccessToken acquireAccessToken = provider.acquireAccessToken();
-                accessToken = acquireAccessToken.getAccessToken();
-                LOGGER.log(Level.FINE, "ACCESS TOKEN {0}", accessToken);
 
-            } catch (Exception ex) {
-                LOGGER.log(Level.SEVERE, null, ex);
-            }
-            //メディア・サービス　インスタンス生成 
-            mediaService = MediaService.create(configuration);
-
+            AzureAdAccessToken acquireAccessToken = provider.acquireAccessToken();
+            accessToken = acquireAccessToken.getAccessToken();
+            LOGGER.log(Level.FINE, "ACCESS TOKEN {0}", accessToken);
         } catch (MalformedURLException | URISyntaxException ex) {
             throw ex;
+        } catch (Exception e) {
+            throw new ServiceException(e);
         }
-    }
-
-    /**
-     * 終了処理
-     * 
-     * 初期化時に作成したスレッドを停止
-     * 
-     */
-    public void destroy() {
         executorService.shutdown();
     }
 
@@ -342,11 +324,10 @@ public class ChannelOperation {
 
     /**
      * 新規チャンネルの作成
-     * 
-     * 注意：
-     * ご利用の環境に応じては制限により 5 つ以上のチャンネルを作成できない場合があります。
+     *
+     * 注意： ご利用の環境に応じては制限により 5 つ以上のチャンネルを作成できない場合があります。
      * 作成可能なチャンネル数の上限を増やしたい場合は、サポートへご連絡ください。
-     * 
+     *
      * @param name：チャンネル名
      * @param protocol：プロトコル : RTMP
      * @param sourceIP : IP アドレスのリスト
@@ -423,8 +404,8 @@ public class ChannelOperation {
             throw new InvalidChannelOperationException("delete channel failed :" + responseStatus.getStatusCode() + " : " + responseStatus.getReasonPhrase());
         }
     }
-    
-    private void deleteProgram(String programID) throws InvalidChannelOperationException{
+
+    private void deleteProgram(String programID) throws InvalidChannelOperationException {
         ClientResponse response = requestRESTEndpoint("Programs('" + programID + "')")
                 .delete(ClientResponse.class, "{}");
         LOGGER.log(Level.FINE, "{0} : {1}", new Object[]{response.getStatusInfo().getStatusCode(), response.getStatusInfo().getReasonPhrase()});
@@ -434,7 +415,6 @@ public class ChannelOperation {
             throw new InvalidChannelOperationException("delete channel failed :" + responseStatus.getStatusCode() + " : " + responseStatus.getReasonPhrase());
         }
     }
-    
 
     /**
      * 指定したチャンネル ID 内に含まれるプログラム一覧を取得

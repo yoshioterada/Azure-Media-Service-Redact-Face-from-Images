@@ -64,7 +64,6 @@ public class ChannelOperationTest {
     public void destroy() throws MalformedURLException, URISyntaxException, ServiceException {
         stopAllDummyChannel();
         deleteAllChannels();
-        channelOperation.destroy();
     }
 
     /**
