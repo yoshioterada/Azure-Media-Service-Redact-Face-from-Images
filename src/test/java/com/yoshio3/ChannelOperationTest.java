@@ -35,19 +35,15 @@ public class ChannelOperationTest {
 
     @Before
     public void setUp() throws MalformedURLException, URISyntaxException, ServiceException {
-        System.out.println("setUp Start -----------------------------");
         channelOperation = new ChannelOperation();
         channelOperation.init();
-        System.out.println("setUp Done -----------------------------");
     }
     
     @After
     public void destroy() throws MalformedURLException, URISyntaxException, ServiceException {
-        System.out.println("setUp Start -----------------------------");
         stopAllDummyChannel();
         deleteAllChannels();
         channelOperation.destroy();
-        System.out.println("setUp Done -----------------------------");
     }
 
     /**
