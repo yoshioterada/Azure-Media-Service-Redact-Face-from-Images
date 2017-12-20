@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.IntStream;
 import static org.hamcrest.core.IsEqual.*;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -36,9 +37,16 @@ public class ChannelOperationTest {
     public void setUp() throws MalformedURLException, URISyntaxException, ServiceException {
         System.out.println("setUp Start -----------------------------");
         channelOperation = new ChannelOperation();
-        channelOperation.init();        
+        channelOperation.init();
+        System.out.println("setUp Done -----------------------------");
+    }
+    
+    @After
+    public void destroy() throws MalformedURLException, URISyntaxException, ServiceException {
+        System.out.println("setUp Start -----------------------------");
         stopAllDummyChannel();
         deleteAllChannels();
+        channelOperation.destroy();
         System.out.println("setUp Done -----------------------------");
     }
 
