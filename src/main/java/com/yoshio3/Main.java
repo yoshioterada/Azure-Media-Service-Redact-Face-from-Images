@@ -42,7 +42,7 @@ import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 public class Main {
-
+    
     private final static Logger LOGGER = Logger.getLogger(Main.class.getName());
     private final static String INPUT_DIRECTORY;
 

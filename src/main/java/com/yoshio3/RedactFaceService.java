@@ -127,6 +127,13 @@ public class RedactFaceService {
             Configuration configuration = MediaConfiguration.configureWithAzureAdTokenProvider(
                     new URI(REST_API_ENDPOINT),
                     provider);
+            
+            try {
+                AzureAdAccessToken acquireAccessToken = provider.acquireAccessToken();
+                String accessToken = acquireAccessToken.getAccessToken();
+            } catch (Exception ex) {
+                Logger.getLogger(RedactFaceService.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             //メディア・サービス　インスタンス生成 
             mediaService = MediaService.create(configuration);
