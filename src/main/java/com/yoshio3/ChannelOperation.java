@@ -67,7 +67,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
@@ -142,6 +141,12 @@ public class ChannelOperation {
         }
     }
 
+    /**
+     * 終了処理
+     * 
+     * 初期化時に作成したスレッドを停止
+     * 
+     */
     public void destroy() {
         executorService.shutdown();
     }
@@ -214,19 +219,16 @@ public class ChannelOperation {
      * @return ChannelValue のリスト
      */
     public List<ChannelValue> listChannel() {
-        String postResult = requestRESTEndpoint("Channels")
+        String getResult = requestRESTEndpoint("Channels")
                 .get(String.class);
         JsonbConfig config = new JsonbConfig();
         config.withNullValues(Boolean.TRUE);
         Jsonb jsonb = JsonbBuilder.create(config);
 
-        ListChannel fromJson = jsonb.fromJson(postResult, ListChannel.class);
+        ListChannel fromJson = jsonb.fromJson(getResult, ListChannel.class);
         LOGGER.log(Level.FINE, "LIST CHANNEL: {0}", fromJson);
 
-        List<ChannelValue> result = fromJson
-                .getValue()
-                .stream()
-                .collect(Collectors.toList());
+        List<ChannelValue> result = fromJson.getValue();
         return result;
     }
 
