@@ -11,7 +11,7 @@ Video : [Link of Demo Video](https://youtu.be/aAaIAlME3AY).
 At first, you need to create Azure Media Services on Azure environment.
 
 ### 1.1 Access to the Azure Portal
-Please access to the [Azure Portal](http://portal.azure.com) ?
+Please access to the [Azure Portal](https://portal.azure.com/?WT.mc_id=java-0000-yoterada) ?
 Then you can see following dash board.
 ![001](https://c1.staticflickr.com/5/4680/38890698762_52e01d2fe6_z.jpg)
 
